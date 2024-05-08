@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.vendorDemo.CloudVendor.entity.CloludVendor;
+import com.vendorDemo.CloudVendor.exception.CloudVendorNotFoundException;
 import com.vendorDemo.CloudVendor.repository.CloudeVendorRepository;
 import com.vendorDemo.CloudVendor.service.CloudeVendorService;
 
@@ -18,6 +19,8 @@ public class CloludVendorServiceImpl implements CloudeVendorService {
 	@Override
 	public CloludVendor getCloudeVender(String venderId) {
 		
+		if(cloudeVendorRepository.findById(venderId).isEmpty())
+			throw new CloudVendorNotFoundException("Requested Cloud Vendor does not exist");
 		return cloudeVendorRepository.findById(venderId).get();
 	}
 
